@@ -1,0 +1,24 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    int a, b, i = 0;
+    cin >> a;
+    string str;
+    cout << a << "=";
+    b = abs(a);
+    while (b)
+    {
+        if (b % 10)
+        {
+            str = ((a > 0) ? "+" : "-") + to_string(b % 10) + "*10^" + to_string(i) + str;
+            ++i;
+            b /= 10;
+        }
+    }
+    if (a > 0) str.erase(0, 1);
+    cout << str;
+}
