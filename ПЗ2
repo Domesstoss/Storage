@@ -1,24 +1,38 @@
 #include <iostream>
-#include <string>
+
 
 using namespace std;
 
 int main()
 {
-    int a, b, i = 0;
-    cin >> a;
-    string str;
-    cout << a << "=";
-    b = abs(a);
-    while (b)
-    {
-        if (b % 10)
-        {
-            str = ((a > 0) ? "+" : "-") + to_string(b % 10) + "*10^" + to_string(i) + str;
-            ++i;
-            b /= 10;
-        }
+    int input, dec = 10, step = 0;
+    cin >> input;
+
+    cout << input;
+    cout << "=";
+
+    while (input % dec != input) {
+        dec *= 10;
+        ++step;
     }
-    if (a > 0) str.erase(0, 1);
-    cout << str;
-}
+
+    cout << input / (dec / 10);
+    cout << "*10^"; 
+    cout << step;
+
+    input = input % (dec / 10);
+    dec /= 10;
+    --step;
+
+    while (step > -1) {
+        if (input > 0) {
+            cout << "+";
+        }
+        cout << input / (dec / 10);
+        cout << "*10^";
+        cout << step;
+
+        input = input % (dec / 10);
+        dec /= 10;
+        --step;
+    }
