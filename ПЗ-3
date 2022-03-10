@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int from_cc1_to_ten(string num, int cc) {
+	int ans = 0;
+	for (char symbol_char : num) {
+		int symbol_int = int(symbol_char);
+		if (symbol_int > 57) {
+			symbol_int = int(symbol_int - 'A' + 10);
+		}
+		else {
+			symbol_int = int(symbol_int - '0');
+		}
+		ans += symbol_int;
+		ans *= cc;
+	}
+	return (ans / cc);
+}
+
+
+string from_ten_to_cc2(int num, int cc) {
+	if (num == cc) {
+		return "10";
+	}
+	else {
+		string ans = "";
+		for (int i = 0; num > 0; i++) {
+			if (num % cc > 9) {
+				ans = char((num % cc) + 'A' - 10) + ans;
+			}
+			else {
+				ans = char((num % cc) + '0') + ans;
+			}
+			num /= cc;
+		}
+		return ans;
+	}
+}
+
+
+int main() {
+	int cc1, cc2; 
+	string num;
+	cin >> cc1 >> num >> cc2;
+	int num_in_ten = from_cc1_to_ten(num, cc1);
+	cout << num_in_ten << '\n';
+	cout << from_ten_to_cc2(num_in_ten, cc2);
+}
