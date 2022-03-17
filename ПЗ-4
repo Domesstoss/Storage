@@ -3,19 +3,58 @@
 
 using namespace std;
 
+bool func(string gay, char nigger, char bigger) {
+	int i, check = 0;
+	string niggers = "", biggers = "";
+	if (gay.length() % 2 == 0) {
+		for (i = 0; i < gay.length(); ++i) {
+			if (gay[i] == nigger) {
+				niggers += i;
+			} else {
+				biggers += i;
+			}
+		}
+		if (niggers.length() == biggers.length()) {
+			for (i = 0; i < niggers.length(); ++i) {
+				if (niggers[i] > biggers[i]) {
+					++check;
+				}
+			}
+		} else {
+			return false;
+		}
+		if (check == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+
 int main() {
-	string input, brack;
-	brack = "()[] {}";
-	int len, i;
+	string input, brack1, brack2, brack3;
+	brack1 = "";
+	brack2 = "";
+	brack3 = "";
+	int i;
 	cin >> input;
-	len = input.length();
-	cout << len;
-	for (i = 0; i < len; i ++) {
-		if (input[i].contains(brack)) {
-			cout << i;
+	for (i = 0; i < input.length(); ++i) {
+		if (input[i] == '(' or input[i] == ')') {
+			brack1 += input[i];
+		}
+		if (input[i] == '[' or input[i] == ']') {
+			brack2 += input[i];
+		}
+		if (input[i] == '{' or input[i] == '}') {
+			brack3 += input[i];
 		}
 	}
-		
-		
+	if (func(brack1, '(', ')') and func(brack2, '[', ']') and func(brack3, '{', '}')) {
+		cout << "YES";
+	} else {
+		cout << "NO";
+	}
 	
-}
+	}
