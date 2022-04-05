@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void filling(vector<int>& victor, int& size) {
+void filling(vector<int>& victor, int size) {
 	int min, max;
 	cin >> min >> max;
 	for (int i = 0; i < size; ++i) {
@@ -12,10 +12,10 @@ void filling(vector<int>& victor, int& size) {
 	}
 	cout << endl;
 }
-void cockSort(vector<int>& victor) {
-	int control = victor.size() - 1;
+void cockSort(vector<int>& victor, int size) {
+	int control = size - 1;
 	int left = 0;
-	int right = victor.size() - 1;
+	int right = size - 1;
 	do {
 		for (int i = left; i < right; ++i) {
 			if (victor[i] > victor[i + 1]) {
@@ -41,7 +41,7 @@ int main()
 	vector<int> victor;
 	victor.reserve(size);
 	filling(victor, size);
-	cockSort(victor);
+	cockSort(victor, size);
 	for (int i = 0; i < victor.size(); i++) {
 		cout << victor[i] << " ";
 	}
