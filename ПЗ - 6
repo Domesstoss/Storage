@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void filling(vector<int>& victor, int& size) {
+	int min, max;
+	cin >> min >> max;
+	for (int i = 0; i < size; ++i) {
+		victor.push_back(static_cast<int>(rand() % max + min));
+		cout << victor[i] << " ";
+	}
+	cout << endl;
+}
+void cockSort(vector<int>& victor) {
+	int control = victor.size() - 1;
+	int left = 0;
+	int right = victor.size() - 1;
+	do {
+		for (int i = left; i < right; ++i) {
+			if (victor[i] > victor[i + 1]) {
+				swap(victor[i], victor[i + 1]);
+				control = i;
+			}
+		}
+		right = control;
+		for (int i = right; i > left; --i) {
+			if (victor[i] < victor[i - 1]) {
+				swap(victor[i], victor[i - 1]);
+				control = i;
+			}
+		}
+		left = control;
+	} while (left < right);
+}
+
+int main()
+{
+	int size;
+	cin >> size;
+	vector<int> victor;
+	victor.reserve(size);
+	filling(victor, size);
+	cockSort(victor);
+	for (int i = 0; i < victor.size(); i++) {
+		cout << victor[i] << " ";
+	}
+}
