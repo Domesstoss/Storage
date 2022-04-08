@@ -7,7 +7,7 @@ void filling(vector<int>& victor, int size) {
 	int min, max;
 	cin >> min >> max;
 	for (int i = 0; i < size; ++i) {
-		victor.push_back(static_cast<int>(rand() % max + min));
+		victor.push_back(static_cast<int>(rand() % (max - min + 1) + min));
 		cout << victor[i] << " ";
 	}
 	cout << endl;
