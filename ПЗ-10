@@ -1,0 +1,128 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+union req
+{
+    int out;
+    float in;
+
+    req(){}
+    req(int x) : out(x) {}
+    req(float x) : in(x) {}
+};
+
+struct for_pair
+{
+    int ii;
+    req rr;
+    for_pair(){}
+    for_pair(int i, req r) : ii(i), rr(r) {}
+};
+
+class heap
+{
+    vector<int> Heap;
+    void heapify(int i);
+    bool finder(int i, int &x);
+public:
+    void insert(int x);
+    int extract();
+    bool hfind(int x);
+//    void print() {for(int i = 0; i < Heap.size(); ++i) cout << Heap[i] << ' ';}
+};
+
+int main()
+{
+    setlocale(0, "");
+
+    cout << "\n\tВвод:\n\t";
+    int n; cin >> n;
+    int a, b;
+    float c;
+    vector<for_pair> request(n);
+    for(int i = 0; i < n; ++i) {
+        cin.sync();
+        cout << "\t";
+        cin >> a;
+        if(a == 1) {
+            request[i] = for_pair(1, 0);
+        }
+        else if(a == 0 || a == 2) {
+            cin >> c; // c - float
+            if(a == 2) {
+                b = static_cast<int>(c);
+                request[i] = for_pair(a, b);
+            }
+            else request[i] = for_pair(a, c);
+        }
+    }
+    cout << "\t";
+    cin.sync(); cin.get();
+    cout << "\tВывод:";
+
+    heap h;
+
+    for(int i = 0; i < n; ++i) {
+        switch(request[i].ii)
+        {
+            case 0: h.insert(request[i].rr.in);
+                    break;
+            case 1: cout << "\n\t" << h.extract();
+                    break;
+            case 2: if(h.hfind(request[i].rr.out)) cout << "\n\tYES";
+                    else cout << "\n\tNO";
+                    break;
+            default: cout << "\nsome error\n";
+                     exit(1);
+        }
+    }
+    cout << "\n";
+
+    return 0;
+}
+
+void heap::insert(int x)
+{
+//    int y = static_cast<int>(x);
+    Heap.push_back(x);
+    rotate(Heap.rbegin(), Heap.rbegin()+1, Heap.rend());
+    heapify(0);
+}
+
+void heap::heapify(int i)
+{
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if(left < Heap.size() && Heap[i] < Heap[left]) {
+        swap(Heap[i], Heap[left]);
+        heapify(left);
+    }
+    else if(right < Heap.size() && Heap[i] < Heap[right]) {
+        swap(Heap[i], Heap[right]);
+        heapify(right);
+    }
+}
+
+int heap::extract()
+{
+    int ans = Heap[0];
+    Heap[0] = Heap.back();
+    Heap.pop_back();
+    heapify(0);
+    return ans;
+}
+
+bool heap::hfind(int x)
+{
+//    return find(Heap.begin(), Heap.end(), x) != Heap.end();
+    if(!Heap.size() || x > Heap[0]) return 0;
+    if(Heap[0] == x) return 1;
+    return finder(1, x) || finder(2, x);
+}
+
+bool heap::finder(int i, int &x)
+{
+    if(i >= Heap.size() || x > Heap[i]) return 0;
+    if(Heap[i] == x) return 1;
+    return finder(i*2 + 1, x) || finder(i*2 + 2, x);
+}
